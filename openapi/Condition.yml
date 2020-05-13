@@ -1,0 +1,949 @@
+swagger: "2.0"
+# Document metadata
+info:
+  version: "1.0"
+  title: FHIR R4 Condition Resource
+  description: This resource is used to record detailed information about a condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen to a level of concern.
+
+host: cfnsifuol9.execute-api.us-east-1.amazonaws.com
+basePath: /demo
+schemes:
+  - https
+paths:
+  /Condition:
+    post:
+      tags:
+        - Condition
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/Condition"
+      responses:
+        201:
+          description: Success
+        400:
+          description: Bad Request
+        415:
+          description: Unsupported Media Type
+        422:
+          description: Request could not be processed
+    get:
+      tags:
+        - Condition
+      parameters:
+        - name: _language
+          type: string
+          in: query
+          description: The language of the resource
+        - name: evidence-detail
+          type: string
+          in: query
+          description: Supporting information found elsewhere
+        - name: severity
+          type: string
+          in: query
+          description: The severity of the condition
+        - name: identifier
+          type: string
+          in: query
+          description: A unique identifier of the condition record
+        - name: onset-info
+          type: string
+          in: query
+          description: Onsets as a string
+        - name: recorded-date
+          type: string
+          in: query
+          description: Date record was first recorded
+          format: date
+        - name: code
+          type: string
+          in: query
+          description: Code for the condition
+        - name: evidence
+          type: string
+          in: query
+          description: Manifestation/symptom
+        - name: subject
+          type: string
+          in: query
+          description: Who has the condition?
+        - name: verification-status
+          type: string
+          in: query
+          description: >-
+            unconfirmed | provisional | differential | confirmed | refuted |
+            entered-in-error
+        - name: clinical-status
+          type: string
+          in: query
+          description: The clinical status of the condition
+        - name: encounter
+          type: string
+          in: query
+          description: Encounter created as part of
+        - name: onset-date
+          type: string
+          in: query
+          description: Date related onsets (dateTime and Period)
+          format: date
+        - name: abatement-date
+          type: string
+          in: query
+          description: Date-related abatements (dateTime and period)
+          format: date
+        - name: asserter
+          type: string
+          in: query
+          description: Person who asserts this condition
+        - name: stage
+          type: string
+          in: query
+          description: Simple summary (disease specific)
+        - name: abatement-string
+          type: string
+          in: query
+          description: Abatement as a string
+        - name: patient
+          type: string
+          in: query
+          description: Who has the condition?
+        - name: abatement-age
+          type: integer
+          in: query
+          description: Abatement as age or age range
+        - name: onset-age
+          type: integer
+          in: query
+          description: Onsets as age or age range
+        - name: _id
+          type: string
+          in: query
+          description: The ID of the resource
+        - name: body-site
+          type: string
+          in: query
+          description: "Anatomical location, if relevant"
+        - name: category
+          type: string
+          in: query
+          description: The category of the condition
+        - name: _format
+          in: query
+          type: string
+          x-consoleDefault: application/json
+        - name: _lastUpdated
+          type: string
+          in: query
+          required: false
+          description: When the resource version last changed
+        - name: _content
+          type: string
+          in: query
+          required: false
+          description: Search on the entire content of the resource
+        - name: _text
+          type: string
+          in: query
+          required: false
+          description: Search on the text of the narrative of the resource
+        - name: _tag
+          type: string
+          in: query
+          required: false
+          description: Tags applied to this resource
+        - name: _profile
+          type: string
+          in: query
+          required: false
+          description: Profiles this resource claims to conform to
+        - name: _security
+          type: string
+          in: query
+          required: false
+          description: Security Labels applied to this resource
+        - name: _source
+          type: string
+          in: query
+          required: false
+          description: Identifies where the resource comes from
+        - name: _type
+          type: string
+          in: query
+          required: false
+          description: Search initiated against a known type of resource
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Condition"
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Condition not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  "/Condition/{id}":
+    parameters:
+      - in: path
+        required: true
+        name: id
+        type: string
+    get:
+      tags:
+        - Condition
+      parameters: []
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Condition"
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Condition not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+    put:
+      tags:
+        - Condition
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/Condition"
+      responses:
+        200:
+          description: Success
+        201:
+          description: Created
+        204:
+          description: No content
+    delete:
+      tags:
+        - Condition
+      parameters: []
+      responses:
+        200:
+          description: Success
+  "/Condition/{id}/_history":
+    get:
+      tags:
+        - Condition
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: _count
+          in: query
+          type: string
+        - name: _since
+          in: query
+          type: string
+      responses:
+        200:
+          description: Success
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Condition not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  /Condition/_history:
+    get:
+      tags:
+        - Condition
+      parameters:
+        - name: _count
+          in: query
+          type: string
+        - name: _since
+          in: query
+          type: string
+      responses:
+        200:
+          description: Success
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Condition not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  "/Condition/{id}/_history/{vid}":
+    get:
+      tags:
+        - Condition
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: vid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Condition"
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: No conditions found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+definitions:
+  Annotation:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          authorReference:
+            $ref: "#/definitions/Reference"
+          authorString:
+            type: string
+          time:
+            type: string
+            format: date-time
+          text:
+            type: string
+  Address:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          use:
+            type: string
+            description: home | work | temp | old | billing - purpose of this address
+          type:
+            type: string
+            description: postal | physical | both
+          line:
+            type: array
+            items:
+              type: string
+            description: Street name, number, direction & P.O. Box etc.
+          city:
+            type: string
+            description: Name of city, town etc.
+          district:
+            type: string
+            description: District name (aka county)
+          state:
+            type: string
+            description: Sub-unit of country (abbreviations ok)
+          postalcode:
+            type: string
+            description: Postal code for area
+          country:
+            type: string
+            description: Country (e.g. can be ISO 3166 2 or 3 letter code)
+          period:
+            $ref: "#/definitions/Period"
+  Attachment:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          contentType:
+            type: string
+            description: Mime type of the content, with charset etc.
+          language:
+            type: string
+            description: Human language of the content (BCP-47)
+          data:
+            type: string
+            format: binary
+            description: Data inline, base64ed
+          uri:
+            type: string
+            description: Uri where the data can be found
+          size:
+            type: integer
+            description: Number of bytes of content (if url provided)
+          hash:
+            type: string
+            format: binary
+            description: Hash of the data (sha-1, base64ed)
+          title:
+            type: string
+            description: Label to display in place of the data
+          creation:
+            type: string
+            format: date-time
+            description: Date attachment was first created
+  BackBoneElement:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          modifierExtension:
+            $ref: "#/definitions/Extension"
+  CodeableConcept:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          coding:
+            description: A reference to a code defined by a terminology system
+            type: array
+            items:
+              $ref: "#/definitions/Coding"
+          text:
+            type: string
+            description: Plain text representation of the concept
+  Coding:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          system:
+            type: string
+            description: Identity of the terminology system
+            minLength: 1
+          version:
+            type: string
+            description: Version of the system - if relevant
+            minLength: 1
+          code:
+            type: string
+            description: Symbol in syntax defined by the system
+            minLength: 1
+          display:
+            type: string
+            description: Representation defined by the system
+            minLength: 1
+          userSelected:
+            type: boolean
+            description: If this coding was chosen directly by the user
+  ContactPoint:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          system:
+            type: string
+            description: phone | fax | email | pager | url | sms | other
+          value:
+            type: string
+            description: The actual contact point details
+          use:
+            type: string
+            description: home | work | temp | old | mobile - purpose of this contact point
+          rank:
+            type: integer
+            description: Specify preferred order of use (1 = highest)
+          period:
+            $ref: "#/definitions/Period"
+  DomainResource:
+    allOf:
+      - $ref: "#/definitions/Resource"
+      - type: object
+        properties:
+          text:
+            $ref: "#/definitions/Narrative"
+          contained:
+            type: array
+            description: Contained, inline Resources
+            items:
+              $ref: "#/definitions/Resource"
+          extension:
+            type: array
+            description: Additional content defined by implementations
+            items:
+              $ref: "#/definitions/Extension"
+          modifierExtension:
+            type: array
+            description: Extensions that cannot be ignored
+            items:
+              $ref: "#/definitions/Extension"
+  Element:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique id for inter-element referencing
+      extension:
+        type: array
+        items:
+          $ref: "#/definitions/Extension"
+  Extension:
+    type: object
+    properties:
+      url:
+        type: string
+        description: identifies the meaning of the extension
+        minLength: 1
+      value:
+        type: string
+        description: Value of extension
+        minLength: 1
+  HumanName:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          use:
+            type: string
+            description: usual | official | temp | nickname | anonymous | old | maiden
+          text:
+            type: string
+            description: Text representation of the full name
+          family:
+            type: string
+            description: Family name (often called 'Surname')
+          given:
+            type: array
+            description: Given names (not always 'first'). Includes middle names
+            items:
+              type: string
+          prefix:
+            type: array
+            items:
+              type: string
+              description: Parts that come before the name
+          suffix:
+            type: array
+            items:
+              type: string
+              description: Parts that come after the name
+          period:
+            $ref: "#/definitions/Period"
+  Identifier:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          use:
+            type: string
+            description: usual | official | temp | secondary | old (If known)
+          type:
+            $ref: "#/definitions/CodeableConcept"
+          system:
+            type: string
+            description: The namespace for the identifier value (uri)
+          value:
+            type: string
+            description: The value that is unique
+          period:
+            $ref: "#/definitions/Period"
+          assigner:
+            type: string
+            description: Organization that issued id (may be just text)
+  Meta:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          version:
+            type: string
+          lastUpdated:
+            type: string
+            format: date-time
+          source:
+            type: string
+            description: Identifies where the resource comes from (uri)
+          profile:
+            type: array
+            items:
+              type: object
+              properties:
+                canonical:
+                  type: string
+                  description: Profiles the resource conforms to (uri)
+          security:
+            type: array
+            description: Security Labels applied to this resource
+            items:
+              $ref: "#/definitions/Coding"
+          tag:
+            type: array
+            description: Tags applied to this resource
+            items:
+              $ref: "#/definitions/Coding"
+  Narrative:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          status:
+            type: string
+            description: generated | extensions | additional | empty
+          div:
+            type: string
+            description: Limited xhtml content
+        required:
+          - status
+          - div
+  Period:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          start:
+            type: string
+            format: date-time
+            description: Starting time with inclusive boundary
+          end:
+            type: string
+            format: date-time
+            description: End time with inclusive boundary
+  Quantity:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          value:
+            type: number
+            description: Numerical value (with implicit precision)
+          comparator:
+            type: string
+            description: < | <= | >= | > - how to understand the value
+          unit:
+            type: string
+            description: Unit representation
+          system:
+            type: string
+            description: System that defines coded unit form (uri)
+          code:
+            type: string
+            description: Coded form of the unit
+  SimpleQuantity:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          value:
+            type: number
+            description: Numerical value (with implicit precision)
+          unit:
+            type: string
+            description: Unit representation
+          system:
+            type: string
+            description: System that defines coded unit form (uri)
+          code:
+            type: string
+            description: Coded form of the unit
+  Range:
+    description: Set of values bounded by low and high
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          low:
+            $ref: "#/definitions/SimpleQuantity"
+          high:
+            $ref: "#/definitions/SimpleQuantity"
+  Ratio:
+    description: A ratio of two Quantity values - a numerator and a denominator
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          numerator:
+            $ref: "#/definitions/Quantity"
+          denominator:
+            $ref: "#/definitions/Quantity"
+  Reference:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          reference:
+            type: string
+            description: iteral reference, Relative, internal or absolute URL
+          type:
+            type: string
+            description: Type the reference refers to (e.g. "Patient")
+          identifier:
+            $ref: "#/definitions/Identifier"
+          display:
+            type: string
+            description: Text alternative for the resource
+  ReferenceRange:
+    description: Provides guide for interpretation
+    type: array
+    items:
+      allOf:
+        - $ref: "#/definitions/BackBoneElement"
+        - properties:
+            low:
+              $ref: "#/definitions/SimpleQuantity"
+            high:
+              $ref: "#/definitions/SimpleQuantity"
+            type:
+              allOf:
+                - description: Reference range qualifier
+                - $ref: "#/definitions/CodeableConcept"
+            appliesTo:
+              allOf:
+                - description: Reference range population
+                - $ref: "#/definitions/CodeableConcept"
+            age:
+              $ref: "#/definitions/Range"
+            text:
+              description: Text based reference range in an observation
+              type: string
+  Resource:
+    type: object
+    properties:
+      id:
+        type: string
+        minLength: 1
+        description: Logical id of this artifact
+      meta:
+        type: array
+        description: Metadata about the resource
+        items:
+          $ref: "#/definitions/Meta"
+      implicitRules:
+        type: array
+        description: A set of rules under which this content was created
+        items:
+          type: string
+          description: uri
+      language:
+        type: string
+        description: Language of the resource content
+  SampledData:
+    allOf:
+      - $ref: "#/definitions/Element"
+      - type: object
+        properties:
+          origin:
+            $ref: "#/definitions/SimpleQuantity"
+          period:
+            type: number
+            description: Number of milliseconds between samples
+          factor:
+            type: number
+            description: Multiply data by this before adding to origin
+          lowerLimit:
+            type: number
+            description: Lower limit of detection
+          upperLimit:
+            type: number
+            description: Upper limit of detection
+          dimensions:
+            type: integer
+            description: Number of sample points at each time point
+          data:
+            type: string
+            description: Decimal values with spaces, or "E" | "U" | "L"
+  Timing:
+    allOf:
+      - $ref: "#/definitions/BackBoneElement"
+      - type: object
+        properties:
+          event:
+            type: array
+            items:
+              type: string
+              format: date-time
+          repeat:
+            $ref: "#/definitions/Element"
+          boundsDuration:
+            type: string
+          boundsRange:
+            $ref: "#/definitions/Range"
+          boundsPeriod:
+            $ref: "#/definitions/Period"
+          count:
+            description: Number of times to repeat
+            type: integer
+          countMax:
+            description: Maximum number of times to repeat
+            type: integer
+          duration:
+            description: How long when it happens
+            type: number
+          durationMax:
+            description: How long when it happens (Max)
+          durationUnit:
+            description: s | min | h | d | wk | mo | a - unit of time (UCUM)
+            type: string
+          frequency:
+            description: Event occurs frequency times per period
+            type: integer
+          frequencyMax:
+            description: Event occurs up to frequencyMax times per period
+            type: integer
+          period:
+            description: Event occurs frequency times per period
+            type: number
+          periodMax:
+            description: Upper limit of period (3-4 hours)
+            type: number
+          periodUnit:
+            description: s | min | h | d | wk | mo | a - unit of time (UCUM)
+            type: string
+          dayOfWeek:
+            description: mon | tue | wed | thu | fri | sat | sun
+            type: string
+          timeOfDay:
+            description: Time of day for action
+            type: string
+            format: time
+          when:
+            description: Code for time period of occurrence
+            type: string
+          offset:
+            description: Minutes from event (before or after)
+            type: integer
+          code:
+            allOf:
+              - description: BID | TID | QID | AM | PM | QD | QOD | +
+              - $ref: "#/definitions/CodeableConcept"
+  Condition:
+    allOf:
+      - description: Detailed information about conditions, problems or diagnoses
+      - $ref: "#/definitions/DomainResource"
+      - type: object
+        properties:
+          identifier:
+            allOf:
+              - type: array
+              - description: External Ids for this condition
+                items:
+                  $ref: "#/definitions/Identifier"
+          clinicalStatus:
+            allOf:
+              - description: active | recurrence | relapse | inactive | remission | resolved
+              - $ref: "#/definitions/CodeableConcept"
+          verificationStatus:
+            allOf:
+              - description: unconfirmed | provisional | differential | confirmed | refuted | entered-in-error
+              - $ref: "#/definitions/CodeableConcept"
+          category:
+            allOf:
+              - type: array
+              - description: problem-list-item | encounter-diagnosis
+                items:
+                  $ref: "#/definitions/CodeableConcept"
+          severity:
+            allOf:
+              - description: Subjective severity of condition
+              - $ref: "#/definitions/CodeableConcept"
+          code:
+            allOf:
+              - description: identification of the condition, problem or diagnosis
+              - $ref: "#/definitions/CodeableConcept"
+          bodySite:
+            allOf:
+              - type: array
+              - description: Anatomical location, if relevant
+                items:
+                  $ref: "#/definitions/CodeableConcept"
+          subject:
+            allOf:
+              - description: Who has the condition?
+              - $ref: "#/definitions/Reference"
+          encounter:
+            allOf:
+              - description: Encounter created as part of
+              - $ref: "#/definitions/Reference"
+          onsetDateTime:
+            type: string
+            format: date-time
+          onsetAge:
+            type: integer
+          onsetPeriod:
+            $ref: "#/definitions/Period"
+          onsetRange:
+            $ref: "#/definitions/Range"
+          onsetString:
+            type: string
+          abatementDateTime:
+            description: When in resolution/remission
+            type: string
+            format: date-time
+          abatementAge:
+            type: integer
+          abatementPeriod:
+            $ref: "#/definitions/Period"
+          abatementRange:
+            $ref: "#/definitions/Range"
+          abatementString:
+            type: string
+          recordedDate:
+            description: Date record was first recorded
+            type: string
+            format: date-time
+          recorder:
+            allOf:
+              - description: Who recorded the condition
+                $ref: "#/definitions/Reference"
+          asserter:
+            allOf:
+              - description: Person who asserts this condition
+                $ref: "#/definitions/Reference"
+          stage:
+            allOf:
+              - type: array
+              - description: Stage/grade, usually assessed formally
+                items:
+                  $ref: "#/definitions/BackBoneElement"
+                properties:
+                  summary:
+                    allOf:
+                      - description: Simple summary (disease specific)
+                      - $ref: "#/definitions/CodeableConcept"
+                  assesment:
+                    allOf:
+                      - description: Formal record of assessment
+                      - $ref: "#/definitions/Reference"
+                  type:
+                    allOf:
+                      - description: Kind of staging
+                      - $ref: "#/definitions/CodeableConcept"
+          evidence:
+            allOf:
+              - type: array
+              - description: Supporting evidence
+                items:
+                  $ref: "#/definitions/BackBoneElement"
+                properties:
+                  code:
+                    allOf:
+                      - description: Manifestation/symptom
+                      - type: array
+                        items:
+                          $ref: "#/definitions/CodeableConcept"
+                  detail:
+                    allOf:
+                      - description: Supporting information found elsewhere
+                      - type: array
+                        items:
+                          $ref: "#/definitions/Reference"
+          note:
+            allOf:
+              - description: Additional information about the Condition
+              - type: array
+                items:
+                  $ref: "#/definitions/Annotation"

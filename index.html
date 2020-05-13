@@ -1,0 +1,76 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css" >
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+      .errors-wrapper {
+         display: none !IMPORTANT;
+	  }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"> </script>
+    <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-standalone-preset.js"> </script>    <script>
+    window.onload = function() {
+      
+      // Begin Swagger UI call region
+      const ui = SwaggerUIBundle({
+        "dom_id": "#swagger-ui",
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout",
+        validatorUrl: "https://validator.swagger.io/validator",
+        //url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Patient.yml",
+        urls: [
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/AllergyIntolerance.yml", name: "AllergyIntolerance"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/DiagnosticReport.yml", name: "DiagnosticReport"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/MedicationRequest.yml", name: "MedicationRequest"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Organization.yml", name: "Organization"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Patient.yml", name: "Patient"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Practitioner.yml", name: "Practitioner"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Condition.yml", name: "Condition"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Medication.yml", name: "Medication"},
+          {url: "https://iris-fhir-server.s3.amazonaws.com/openapi/Observation.yml", name: "Observation"}
+          
+        ],
+        "urls.primaryName": "Patient"
+      })
+
+
+
+      window.ui = ui
+    }
+  </script>
+  </body>
+</html>

@@ -1,0 +1,781 @@
+swagger: "2.0"
+# Document metadata
+info:
+  version: "1.0"
+  title: FHIR R4 Patient Resource
+  description: Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+
+host: cfnsifuol9.execute-api.us-east-1.amazonaws.com
+basePath: /demo
+schemes:
+  - https
+paths:
+  /Patient:
+    post:
+      tags:
+        - Patient
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/Patient'
+      responses:
+        201:
+          description: Success
+        400:
+          description: Bad Request
+        415:
+          description: Unsupported Media Type
+        422:
+          description: Request could not be processed
+    get:
+      tags:
+        - Patient
+      description: Basic patient queries
+      parameters:
+        - name: _language
+          type: string
+          in: query
+          description: The language of the resource
+        - name: birthdate
+          type: string
+          in: query
+          description: The patient's date of birth
+          format: date
+        - name: deceased
+          type: string
+          in: query
+          description: "This patient has been marked as deceased, or as a death date entered"
+        - name: address-state
+          type: string
+          in: query
+          description: A state specified in an address
+        - name: gender
+          type: string
+          in: query
+          description: Gender of the patient
+        - name: link
+          type: string
+          in: query
+          description: All patients linked to the given patient
+        - name: language
+          type: string
+          in: query
+          description: Language code (irrespective of use value)
+        - name: address-country
+          type: string
+          in: query
+          description: A country specified in an address
+        - name: death-date
+          type: string
+          in: query
+          description: The date of death has been provided and satisfies this search value
+          format: date
+        - name: phonetic
+          type: string
+          in: query
+          description: >-
+            A portion of either family or given name using some kind of phonetic
+            matching algorithm
+        - name: telecom
+          type: string
+          in: query
+          description: The value in any kind of telecom details of the patient
+        - name: address-city
+          type: string
+          in: query
+          description: A city specified in an address
+        - name: email
+          type: string
+          in: query
+          description: A value in an email contact
+        - name: given
+          type: string
+          in: query
+          description: A portion of the given name of the patient
+        - name: identifier
+          type: string
+          in: query
+          description: A patient identifier
+        - name: address
+          type: string
+          in: query
+          description: >-
+            A server defined search that may match any of the string fields in
+            the Address, including line, city, district, state, country,
+            postalCode, and/or text
+        - name: race
+          type: string
+          in: query
+          description: Returns patients with a race extension matching the specified code.
+        - name: general-practitioner
+          type: string
+          in: query
+          description: >-
+            Patient's nominated general practitioner, not the organization that
+            manages the record
+        - name: active
+          type: string
+          in: query
+          description: Whether the patient record is active
+        - name: middlename
+          type: string
+          in: query
+          description: >-
+            SearchParameter for the Norwegian middlename extension
+            http://hl7.no/fhir/StructureDefinition/no-basis-middlename
+        - name: address-postalcode
+          type: string
+          in: query
+          description: A postalCode specified in an address
+        - name: phone
+          type: string
+          in: query
+          description: A value in a phone contact
+        - name: organization
+          type: string
+          in: query
+          description: The organization that is the custodian of the patient record
+        - name: address-use
+          type: string
+          in: query
+          description: A use code specified in an address
+        - name: name
+          type: string
+          in: query
+          description: >-
+            A server defined search that may match any of the string fields in
+            the HumanName, including family, give, prefix, suffix, suffix,
+            and/or text
+        - name: _id
+          type: string
+          in: query
+          description: The ID of the resource
+        - name: family
+          type: string
+          in: query
+          description: A portion of the family name of the patient
+        - name: _format
+          in: query
+          type: string
+          x-consoleDefault: application/json
+        - name: _lastUpdated
+          type: string
+          in: query
+          required: false
+          description: When the resource version last changed
+        - name: _content
+          type: string
+          in: query
+          required: false
+          description: Search on the entire content of the resource
+        - name: _text
+          type: string
+          in: query
+          required: false
+          description: Search on the text of the narrative of the resource
+        - name: _tag
+          type: string
+          in: query
+          required: false
+          description: Tags applied to this resource
+        - name: _profile
+          type: string
+          in: query
+          required: false
+          description: Profiles this resource claims to conform to
+        - name: _security
+          type: string
+          in: query
+          required: false
+          description: Security Labels applied to this resource
+        - name: _source
+          type: string
+          in: query
+          required: false
+          description: Identifies where the resource comes from
+        - name: _type
+          type: string
+          in: query
+          required: false
+          description: Search initiated against a known type of resource
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patient'
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Patient not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  "/Patient/{id}":
+    parameters:
+      - in: path
+        required: true
+        name: id
+        type: string
+    get:
+      tags:
+        - Patient
+      parameters: []
+      responses: 
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Patient'
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Patient not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+    put:
+      tags:
+        - Patient
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Patient'
+      responses:
+        200:
+          description: Success
+        201:
+          description: Created
+        204:
+          description: No content
+    delete:
+      tags:
+        - Patient
+      parameters: []
+      responses:
+        200:
+          description: Success
+  "/Patient/{id}/_history":
+    get:
+      tags:
+        - Patient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: _count
+          in: query
+          type: string
+        - name: _since
+          in: query
+          type: string
+      responses:
+        200:
+          description: Success
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: Patient not found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  /Patient/_history:
+    get:
+      tags:
+        - Patient
+      parameters:
+        - name: _count
+          in: query
+          type: string
+        - name: _since
+          in: query
+          type: string
+      responses:
+        200:
+          description: Success
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: No patients found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+  "/Patient/{id}/_history/{vid}":
+    get:
+      tags:
+        - Patient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: vid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Patient'
+        400:
+          description: malformed request syntax, or invalid request message parameters
+        401:
+          description: User accessing protected resource without providing the proper authorization
+        403:
+          description: User does not have the necessary permissions for the resource
+        404:
+          description: No patients found
+        500:
+          description: Internal server error, request caused an exception to be thrown
+definitions:
+  Address:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          use:
+            type: string
+            description: home | work | temp | old | billing - purpose of this address
+          type:
+            type: string
+            description: postal | physical | both
+          line:
+            type: array
+            items:
+              type: string
+            description: Street name, number, direction & P.O. Box etc.
+          city:
+            type: string
+            description: Name of city, town etc.
+          district:
+            type: string
+            description: District name (aka county)
+          state:
+            type: string
+            description: Sub-unit of country (abbreviations ok)
+          postalcode:
+            type: string
+            description: Postal code for area
+          country:
+            type: string
+            description: Country (e.g. can be ISO 3166 2 or 3 letter code)
+          period:
+            $ref: '#/definitions/Period'
+  Attachment:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          contentType:
+            type: string
+            description: Mime type of the content, with charset etc.
+          language:
+            type: string
+            description: Human language of the content (BCP-47)
+          data:
+            type: string
+            format: binary
+            description: Data inline, base64ed
+          uri:
+            type: string
+            description: Uri where the data can be found
+          size:
+            type: integer
+            description: Number of bytes of content (if url provided)
+          hash:
+            type: string
+            format: binary
+            description: Hash of the data (sha-1, base64ed)
+          title:
+            type: string
+            description: Label to display in place of the data
+          creation:
+            type: string
+            format: date-time
+            description: Date attachment was first created
+  BackBoneElement:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          modifierExtension:
+            $ref: '#/definitions/Extension'
+  CodeableConcept:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          coding:
+            description: A reference to a code defined by a terminology system
+            type: array
+            items:
+              $ref: '#/definitions/Coding'
+          text:
+            type: string
+            description: Plain text representation of the concept
+  Coding:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          system:
+            type: string
+            description: Identity of the terminology system
+            minLength: 1
+          version:
+            type: string
+            description: Version of the system - if relevant
+            minLength: 1
+          code:
+            type: string
+            description: Symbol in syntax defined by the system
+            minLength: 1
+          display:
+            type: string
+            description: Representation defined by the system
+            minLength: 1
+          userSelected:
+            type: boolean
+            description: If this coding was chosen directly by the user
+  ContactPoint:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          system:
+            type: string
+            description: phone | fax | email | pager | url | sms | other
+          value:
+            type: string
+            description: The actual contact point details
+          use:
+            type: string
+            description: home | work | temp | old | mobile - purpose of this contact point
+          rank:
+            type: integer
+            description: Specify preferred order of use (1 = highest)
+          period:
+            $ref: '#/definitions/Period'
+  DomainResource:
+    allOf:
+      - $ref: '#/definitions/Resource'
+      - type: object
+        properties:
+          text:
+            $ref: '#/definitions/Narrative'
+          contained:
+            type: array
+            description: Contained, inline Resources
+            items:
+              $ref: '#/definitions/Resource'
+          extension:
+            type: array
+            description: Additional content defined by implementations
+            items:
+              $ref: '#/definitions/Extension'
+          modifierExtension:
+            type: array
+            description: Extensions that cannot be ignored
+            items:
+              $ref: '#/definitions/Extension'
+  Element:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique id for inter-element referencing
+      extension:
+        type: array
+        items:
+          $ref: '#/definitions/Extension'
+  Extension:
+    type: object
+    properties:
+      url:
+        type: string
+        description: identifies the meaning of the extension
+        minLength: 1
+      value:
+        type: string
+        description: Value of extension
+        minLength: 1
+  HumanName:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          use:
+            type: string
+            description: usual | official | temp | nickname | anonymous | old | maiden
+          text:
+            type: string
+            description: Text representation of the full name
+          family:
+            type: string
+            description: Family name (often called 'Surname')
+          given:
+            type: array
+            description: Given names (not always 'first'). Includes middle names
+            items:
+              type: string
+          prefix:
+            type: array
+            items:
+              type: string
+              description: Parts that come before the name
+          suffix:
+            type: array
+            items:
+              type: string
+              description: Parts that come after the name
+          period:
+            $ref: '#/definitions/Period'
+  Identifier:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          use:
+            type: string
+            description: usual | official | temp | secondary | old (If known)
+          type:
+            $ref: '#/definitions/CodeableConcept'
+          system:
+            type: string
+            description: The namespace for the identifier value (uri)
+          value:
+            type: string
+            description: The value that is unique
+          period:
+            $ref: '#/definitions/Period'
+          assigner:
+            type: string
+            description: Organization that issued id (may be just text)
+  Meta:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          version:
+            type: string
+          lastUpdated:
+            type: string
+            format: date-time
+          source:
+            type: string
+            description: Identifies where the resource comes from (uri)
+          profile:
+            type: array
+            items:
+              type: object
+              properties:
+                canonical:
+                  type: string
+                  description: Profiles the resource conforms to (uri)
+          security:
+            type: array
+            description: Security Labels applied to this resource
+            items:
+              $ref: '#/definitions/Coding'
+          tag:
+            type: array
+            description: Tags applied to this resource
+            items:
+              $ref: '#/definitions/Coding'
+  Narrative:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          status:
+            type: string
+            description: generated | extensions | additional | empty
+          div:
+            type: string
+            description: Limited xhtml content
+        required:
+          - status
+          - div
+  Period:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          start:
+            type: string
+            format: date-time
+            description: Starting time with inclusive boundary
+          end:
+            type: string
+            format: date-time
+            description: End time with inclusive boundary
+  Reference:
+    allOf:
+      - $ref: '#/definitions/Element'
+      - type: object
+        properties:
+          reference:
+            type: string
+            description: iteral reference, Relative, internal or absolute URL
+          type:
+            type: string
+            description: Type the reference refers to (e.g. "Patient")
+          identifier:
+            $ref: '#/definitions/Identifier'
+          display:
+            type: string
+            description: Text alternative for the resource
+  Resource:
+    type: object
+    properties:
+      id:
+        type: string
+        minLength: 1
+        description: Logical id of this artifact
+      meta:
+        type: array
+        description: Metadata about the resource
+        items:
+          $ref: '#/definitions/Meta'
+      implicitRules:
+        type: array
+        description: A set of rules under which this content was created
+        items:
+          type: string
+          description: uri
+      language:
+        type: string
+        description: Language of the resource content
+  Patient:
+    description: Information about an individual or animal receiving health care services
+    allOf:
+      - $ref: '#/definitions/DomainResource'
+      - type: object
+        properties:
+          identifier:
+            type: array
+            uniqueItems: true
+            minItems: 1
+            items:
+              $ref: '#/definitions/Identifier'
+          active:
+            type: boolean
+            description: Whether this patient's record is in active use
+          name:
+            type: array
+            uniqueItems: true
+            minItems: 1
+            items:
+              $ref: '#/definitions/HumanName'
+          gender:
+            type: string
+            description: male | female | other | unknown
+            minLength: 1
+          birthdate:
+            type: string
+            minLength: 1
+            format: date
+            description: The date of birth for the individual
+          deceased:
+            type: object
+            properties:
+              deceasedBoolean:
+                type: boolean
+              deceasedDateTime:
+                type: string
+                minLength: 1
+                format: date
+                description: The date and time of death
+          address:
+            type: array
+            uniqueItems: true
+            minItems: 1
+            items:
+              $ref: '#/definitions/Address'
+          maritalStatus:
+            type: object
+            items:
+              $ref: '#/definitions/CodeableConcept'
+          photo:
+            type: array
+            description: Image of the patient
+            uniqueItems: true
+            minItems: 1
+            items:
+              $ref: '#/definitions/Attachment'
+          contact:
+            description: A contact party (e.g. guardian, partner, friend) for the patient
+            type: array
+            uniqueItems: true
+            minItems: 1
+            items:
+              allOf:
+                - $ref: '#/definitions/BackBoneElement'
+                - type: object
+                  properties:
+                    relationship:
+                      description: The kind of relationship
+                      type: array
+                      uniqueItems: true
+                      minItems: 1
+                      items:
+                        $ref: '#/definitions/CodeableConcept'
+                    organization:
+                      $ref: '#/definitions/Reference'
+                    period:
+                      $ref: '#/definitions/Period'
+          communication:
+            description: A language which may be used to communicate with the patient about his or her health
+            type: array
+            uniqueItems: true
+            minItems: 1
+            items:
+              allOf:
+                - $ref: '#/definitions/BackBoneElement'
+                - type: object
+              properties:
+                preferred:
+                  type: boolean
+                  description: Language preference indicator
+                language:
+                  $ref: '#/definitions/CodeableConcept'
+          generalPractitioner:
+            description: Patient's nominated primary care provider
+            type: array
+            minItems: 1
+            items:
+              $ref: '#/definitions/Reference'
+          managingOrganization:
+            allOf:
+              - $ref: '#/definitions/Reference'
+              - description: Organization that is the custodian of the patient record
+          link:
+            type: array
+            description: Link to another patient resource that concerns the same actual person
+            items:
+              allOf:
+                - $ref: '#/definitions/BackBoneElement'
+                - type: object
+              properties:
+                other:
+                  $ref: '#/definitions/Reference'
+                type:
+                  description: replaced-by | replaces | refer | seealso
+                  type: string
+                  minLength: 1
