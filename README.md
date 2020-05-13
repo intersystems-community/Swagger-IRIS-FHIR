@@ -18,7 +18,7 @@ schemes:
 ```
 Note: `basePath` should NOT inslude the resource itself. For instance, if your Patient resource is located at:
 
-http://localhost:52773//csp/healthshare/fhirserver/fhir/r4/Patient
+http://localhost:52773/csp/healthshare/fhirserver/fhir/r4/Patient
 
 the resource configuration section should look like:
 ```
